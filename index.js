@@ -3,7 +3,7 @@ const app = express()
 const mongoClient = require('mongodb').MongoClient
 const cors = require('cors');
 var db = require('./config/db_connection');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 db.connect((err)=>{
     if(err) console.log("External File Database Connection Error"+err);
