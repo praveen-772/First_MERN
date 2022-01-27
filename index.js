@@ -3,6 +3,7 @@ const app = express()
 const mongoClient = require('mongodb').MongoClient
 const cors = require('cors');
 var db = require('./config/db_connection');
+const path = require('path')
 const PORT = process.env.PORT;
 
 db.connect((err)=>{
@@ -42,13 +43,18 @@ app.post("/deleteUser",async(req,res)=>{
     console.log("User deleted Successfully");
 })
 
-if(process.env.NODE_ENV = "production"){
-    app.use(express.static("client/build"));
-    const path = require("path");
-    app.get("*",(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'client','build','index.html'));
-    })
-}
+// if(process.env.NODE_ENV = "production"){
+//     app.use(express.static("client/build"));
+//     const path = require("path");
+//     app.get("*",(req,res)=>{
+//         res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+//     })
+// }
+
+app.use(express.static(path.join(__dirname,'../build')))
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'../build'))
+})
 
 app.listen(PORT,async ()=>{
     // const client = new mongoClient(url);
