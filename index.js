@@ -4,7 +4,7 @@ const mongoClient = require('mongodb').MongoClient
 const cors = require('cors');
 var db = require('./config/db_connection');
 const path = require('path')
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 db.connect((err)=>{
     if(err) console.log("External File Database Connection Error"+err);
@@ -43,32 +43,32 @@ app.post("/deleteUser",async(req,res)=>{
     console.log("User deleted Successfully");
 })
 
-// if(process.env.NODE_ENV = "production"){
-//     app.use(express.static("client/build"));
-//     const path = require("path");
-//     app.get("*",(req,res)=>{
-//         res.sendFile(path.resolve(__dirname,'client','build','index.html'));
-//     })
-// }
+if(process.env.NODE_ENV = "production"){
+    app.use(express.static("client/build"));
+    const path = require("path");
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+    })
+}
 
-app.use(express.static(path.join(__dirname,'../build')))
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'../build'))
-})
+// app.use(express.static(path.join(__dirname,'../build')))
+// app.get('*',(req,res)=>{
+//     res.sendFile(path.join(__dirname,'../build'))
+// })
 
 app.listen(PORT,async ()=>{
     // const client = new mongoClient(url);
     // await client.connect();
     // const database = client.db("MERN")
-    const users = await db.get().collection('users').find({}).toArray()
+    // const users = await db.get().collection('users').find({}).toArray()
     console.log("Node JS Server Started on Port "+PORT);
     console.log("Mongodb Cloud Database Connected Successfully");
     console.log("----------------------------------------------------------");
-    console.log(users);
+    // console.log(users);
     console.log("----------------------------------------------------------");
-    const user = await db.get().collection('users').findOne({name:"Praveen"})
+    // const user = await db.get().collection('users').findOne({name:"Praveen"})
     console.log("----------------------------------------------------------");
-    console.log(user);
+    // console.log(user);
     console.log("----------------------------------------------------------");
     // await client.close();
 });
