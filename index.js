@@ -22,6 +22,7 @@ app.get("/",async(req,res)=>{
     // const database = client.db("MERN");
     const users = await db.get().collection('users').find({}).toArray()
     res.json(users)
+    // res.redirect("https://www.google.com/");
 })
 
 app.post("/createUser",async(req,res)=>{
@@ -43,12 +44,8 @@ app.post("/deleteUser",async(req,res)=>{
     console.log("User deleted Successfully");
 })
 
-if(process.env.NODE_ENV == "production"){
-    app.use(express.static("client/build"));
-    const path = require("path");
-    app.get("*",(req,res)=>{
-        res.sendFile(path.join(__dirname,'client','build','index.html'));
-    })
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
 }
 
 // app.use(express.static(path.join(__dirname,'../build')))
@@ -56,7 +53,7 @@ if(process.env.NODE_ENV == "production"){
 //     res.sendFile(path.join(__dirname,'../build'))
 // })
 
-app.listen(PORT,async ()=>{
+app.listen(PORT, ()=>{
     // const client = new mongoClient(url);
     // await client.connect();
     // const database = client.db("MERN")
