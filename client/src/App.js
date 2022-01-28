@@ -11,7 +11,7 @@ function App() {
   const [DeleteUser, setDeleteUser] = useState("");
 
   useEffect(() => {
-    axios.get("/").then((response) => {
+    axios.get("http://localhost:5000/getUsers").then((response) => {
       setlistofUsers(response.data);
     });
   }, [listofUsers]);
@@ -22,7 +22,7 @@ function App() {
     console.log(email);
     console.log(address);
     axios
-      .post("/createUser", { name, mob, email, address })
+      .post("http://localhost:5000/createUser", { name, mob, email, address })
       .then((response) => {
         setlistofUsers([...listofUsers, { name, mob, email, address }]);
         
@@ -32,7 +32,7 @@ function App() {
 
   const deleteUser = () => {
     axios
-      .post("/deleteUser", { DeleteUser })
+      .post("http://localhost:5000/deleteUser", { DeleteUser })
       .then((response) => {
         console.log("Contact "+DeleteUser+"Deleted Successfully");
       });
