@@ -11,7 +11,7 @@ function App() {
   const [DeleteUser, setDeleteUser] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/getUsers").then((response) => {
+    axios.get("/").then((response) => {
       setlistofUsers(response.data);
     });
   }, [listofUsers]);
