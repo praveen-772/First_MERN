@@ -3,7 +3,7 @@ const app = express()
 const mongoClient = require('mongodb').MongoClient
 const cors = require('cors');
 var db = require('./config/db_connection');
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 
 db.connect((err)=>{
