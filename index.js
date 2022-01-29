@@ -16,7 +16,7 @@ db.connect((err)=>{
 app.use(cors());
 app.use(express.json());
 
-app.get("/",async(req,res)=>{
+app.get("/getUsers",async(req,res)=>{
     // const client = new mongoClient(url);
     // await client.connect();
     // const database = client.db("MERN");
