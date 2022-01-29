@@ -1,9 +1,11 @@
+require("dotenv").config({path:"./config.env"});
 const express = require('express')
 const app = express()
 const mongoClient = require('mongodb').MongoClient
 const cors = require('cors');
 var db = require('./config/db_connection');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
+const path = require('path');
 
 
 db.connect((err)=>{
@@ -43,10 +45,15 @@ app.post("/deleteUser",async(req,res)=>{
     console.log("User deleted Successfully");
 })
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'));
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname,'/client/build')));
     app.get('*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'client','build','index.html'));        
+        res.sendFile(path.join(__dirname,'client','build','index.html'));        
+    })
+}
+else{
+    app.get('/',(req,res)=>{
+        res.send("Else part of - if process.env.NODE_ENV === production ");
     })
 }
 
@@ -56,7 +63,7 @@ app.listen(PORT, (err)=>{
     // await client.connect();
     // const database = client.db("MERN")
     // const users = await db.get().collection('users').find({}).toArray()
-    console.log("Node JS Server Started on Port NO: "+PORT);
+    console.log(`Node JS Server Started on Port NO: ${PORT}`);
     console.log("Mongodb Cloud Database Connected Successfully");
     console.log("----------------------------------------------------------");
     // console.log(users);
